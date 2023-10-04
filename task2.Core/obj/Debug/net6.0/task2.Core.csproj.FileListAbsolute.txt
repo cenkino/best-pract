@@ -1,0 +1,12 @@
+C:\Users\cenk\source\repos\task2\task2.Core\bin\Debug\net6.0\task2.Core.deps.json
+C:\Users\cenk\source\repos\task2\task2.Core\bin\Debug\net6.0\task2.Core.dll
+C:\Users\cenk\source\repos\task2\task2.Core\bin\Debug\net6.0\task2.Core.pdb
+C:\Users\cenk\source\repos\task2\task2.Core\obj\Debug\net6.0\task2.Core.csproj.AssemblyReference.cache
+C:\Users\cenk\source\repos\task2\task2.Core\obj\Debug\net6.0\task2.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\cenk\source\repos\task2\task2.Core\obj\Debug\net6.0\task2.Core.AssemblyInfoInputs.cache
+C:\Users\cenk\source\repos\task2\task2.Core\obj\Debug\net6.0\task2.Core.AssemblyInfo.cs
+C:\Users\cenk\source\repos\task2\task2.Core\obj\Debug\net6.0\task2.Core.csproj.CoreCompileInputs.cache
+C:\Users\cenk\source\repos\task2\task2.Core\obj\Debug\net6.0\task2.Core.dll
+C:\Users\cenk\source\repos\task2\task2.Core\obj\Debug\net6.0\refint\task2.Core.dll
+C:\Users\cenk\source\repos\task2\task2.Core\obj\Debug\net6.0\task2.Core.pdb
+C:\Users\cenk\source\repos\task2\task2.Core\obj\Debug\net6.0\ref\task2.Core.dll

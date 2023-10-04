@@ -1,0 +1,330 @@
+﻿@model IEnumerable<task2.Core.Models.Product>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container">
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Ürün Adı</th>
+                <th>Kod</th>
+                <th>Fiyat</th>
+                <th>Oluşturulma Tarihi</th>
+                <th>Resim</th>
+                <th>#</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td>@product.Id</td>
+                    <td>@product.Name</td>
+                    <td>@product.Code</td>
+                    <td>@product.Price</td>
+                    <td>@product.CreatedDate.ToShortDateString()</td>
+                    <td><img src="@product.Picture" alt="Ürün Resmi" class="img-thumbnail" width="150" height="150"></td>
+                    <td>
+                        <a href="#" class="btn btn-primary btnUpdate" data-toggle="modal" data-target="#editProductModal" data-product-id="@product.Id">Düzenle</a>
+                        <a href="#" class="btn btn-danger btnDelete" data-toggle="modal" data-target="#confirmDeleteModal" data-product-id="@product.Id">Sil</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <button class="btn btn-success" data-toggle="modal" data-target="#addProductModal">Ürün Ekle</button>
+</div>
+
+
+<!-- Ürün Ekleme Modal -->
+<div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addProductModalLabel">Ürün Ekle</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addProductForm">
+                    <div class="form-group">
+                        <label for="productName">Ürün Adı</label>
+                        <input type="text" class="form-control" id="productName" name="productName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productCode">Kod</label>
+                        <input type="text" class="form-control" id="productCode" name="productCode" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productPrice">Fiyat</label>
+                        <input type="number" class="form-control" id="productPrice" name="productPrice" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productImage">Resim</label>
+                        <input type="file" class="form-control-file" id="productImage" name="productImage">
+                    </div>
+                    <div class="form-group">
+                        <img id="imagePreview" src="#" alt="Ürün Resmi Önizleme" style="display: none; max-width: 100px; max-height: 100px;">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Ürünü Sil</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Ürünü silmek istediğinizden emin misiniz?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">İptal</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteButton">Sil</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Ürünü Sil</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Ürünü silmek istediğinizden emin misiniz?</p>
+                <input type="hidden" id="productIdToDelete" value="" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">İptal</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteButton">Sil</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editProductModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <input type="hidden" id="productIdToUpdate" value="" />
+
+            <div class="modal-body">
+                <form id="editProductForm">
+                    <div class="form-group">
+                        <label for="productName">Ürün Adı</label>
+                        <input type="text" class="form-control" id="productUpName" name="productUpName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productCode">Kod</label>
+                        <input type="text" class="form-control" id="productUpCode" name="productUpCode" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productPrice">Fiyat</label>
+                        <input type="number" class="form-control" id="productUpPrice" name="productUpPrice" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productImage">Resim</label>
+                        <input type="file" class="form-control-file" id="productUpImage" name="productUpImage">
+                    </div>
+                    <div class="form-group">
+                        <img id="imageUpPreview" src="#" alt="Ürün Resmi Önizleme" style="display: none; max-width: 100px; max-height: 100px;">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Güncelle</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $("#productImage").change(function () {
+            readURL(this);
+        });
+
+        $("#addProductForm").submit(function (e) {
+            e.preventDefault();
+
+            
+            var productName = $("#productName").val();
+            var productCode = $("#productCode").val();
+            var productPrice = $("#productPrice").val();
+            var productImage = $("#productImage")[0].files[0]; 
+
+            
+            let formData = new FormData();
+            formData.append("Name", productName);
+            formData.append("Code", productCode);
+            formData.append("Price", productPrice);
+            if (productImage) {
+                formData.append("ImageP", productImage);
+                formData.append("Picture", productImage.name);
+            }
+            else {
+                toastr.error("Bir resim seçiniz!");
+                return;
+            }
+            console.log(productImage)
+            debugger;
+            
+            $.ajax({
+                url: '/Products/Add',
+                method: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+
+                    $('#addProductModal').modal('hide');
+                    location.reload();
+                },
+                error: function (error) {
+                    
+                }
+            });
+
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $("#imagePreview").attr("src", e.target.result);
+                    $("#imagePreview").show();
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $(".btnDelete[data-toggle=modal]").click(function () {
+            var productId = $(this).data("product-id");
+            $("#productIdToDelete").val(productId);
+        });
+
+        $("#confirmDeleteButton").click(function () {
+            var productId = $("#productIdToDelete").val();
+
+            
+            $.ajax({
+                type: "POST",
+                url: "/Products/Delete",
+                data: { id: productId },
+                success: function (response) {
+                    location.reload(); 
+                },
+                error: function (error) {
+                    toastr.error("Ürün silinirken bir hata oluştu: " + error.responseText, "Hata");
+                }
+            });
+
+            
+            $("#confirmDeleteModal").modal("hide");
+        });
+
+
+        $(".btnUpdate[data-toggle=modal]").click(function () {
+            var productId = $(this).data("product-id");
+            $("#productIdToUpdate").val(productId);
+        });
+
+
+        $('a[data-target="#editProductModal"]').on('click', function () {
+            //var productId = $(this).data("product-id");
+            var productId = $("#productIdToUpdate").val();
+            
+            $.get('/Products/GetProductById/' + productId, function (data) {
+                
+                $("#productUpName").val(data.name)
+                $("#productUpCode").val(data.code)
+                $("#productUpPrice").val(data.price)
+                //$("#productUpImage").attr("file", data.picture);
+                $("#imageUpPreview").attr("src", data.picture);
+                $("#imageUpPreview").show();
+
+            });
+            
+        });
+
+        
+        
+        $("#editProductForm").submit(function (e) {
+            e.preventDefault();
+            $("#productUpImage").change(function () {
+                readUpURL(this);
+            });
+
+            var productId = $("#productIdToUpdate").val();
+            var productName = $("#productUpName").val();
+            var productCode = $("#productUpCode").val();
+            var productPrice = $("#productUpPrice").val();
+            var productImage = $("#productUpImage")[0].files[0]; 
+
+            
+            let formData = new FormData();
+            formData.append("Id", productId);
+            formData.append("Name", productName);
+            formData.append("Code", productCode);
+            formData.append("Price", productPrice);
+            if (productImage) {
+                formData.append("ImageP", productImage);
+                formData.append("Picture", productImage.name);
+            }
+            else {
+                toastr.error("Biir resim seçiniz!");
+                return;
+            }
+            debugger;
+            $.ajax({
+                type: "POST",
+                url: "/Products/UpdateProduct",
+                data: formData, 
+                processData: false, 
+                contentType: false, 
+                success: function (response) {
+                    toastr.success("Ürün başarıyla güncellendi.");
+                    $('#editProductModal').modal('hide');
+                    location.reload();
+                },
+                error: function (error) {
+                    toastr.error("Ürün güncelleme işlemi başarısız oldu.");
+                }
+            });
+        });
+
+        function readUpURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $("#imageUpPreview").attr("src", e.target.result);
+                    $("#imageUpPreview").show();
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+    });
+</script>
+
+
+
+
